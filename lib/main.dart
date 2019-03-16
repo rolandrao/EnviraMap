@@ -74,36 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Stack(
 
             children: <Widget>[
-              Container (
-              child: new FlutterMap(
-
-                  options: new MapOptions(
-                      center: new LatLng(35.22, -101.83), minZoom: 1.0),
-                  layers: [
-                    new TileLayerOptions(
-                        urlTemplate:
-                        "https://api.mapbox.com/styles/v1/aneesh19/cjtbwojix1g701fn00cwga0lx/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA",
-                        additionalOptions: {
-                          'accessToken':
-                          'pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA',
-                          'id': 'mapbox.mapbox-terrain-v2'
-                        }),
-                    new MarkerLayerOptions(markers: [
-                      new Marker(
-                          width: 45.0,
-                          height: 45.0,
-                          point: new LatLng(35.215, -101.825),
-                          builder: (context) => new Container(
-                            width: 48.0,
-                            height: 48.0,
-
-                          ))
-                    ]),
-
-                  ]
-
-              )
+              Visibility(
+                child: ozoneMap(),
+                visible: true,
               ),
+
               new Container (
                 alignment: Alignment.bottomRight,
                 child: new UnicornDialer(
@@ -185,5 +160,103 @@ class unicornState extends State<unicornWidget> {
 
 }
 
+Container ozoneMap() {
+  return new Container (
+      child: new FlutterMap(
+
+          options: new MapOptions(
+              center: new LatLng(35.22, -101.83), minZoom: 1.0),
+          layers: [
+            new TileLayerOptions(
+                urlTemplate:
+                "https://api.mapbox.com/styles/v1/aneesh19/cjtbwojix1g701fn00cwga0lx/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA",
+                additionalOptions: {
+                  'accessToken':
+                  'pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA',
+                  'id': 'mapbox.mapbox-terrain-v2'
+                }),
+            new MarkerLayerOptions(markers: [
+              new Marker(
+                  width: 45.0,
+                  height: 45.0,
+                  point: new LatLng(35.215, -101.825),
+                  builder: (context) => new Container(
+                    width: 48.0,
+                    height: 48.0,
+
+                  ))
+            ]),
+
+          ]
+
+      )
+  );
+}
+
+Container airMap() {
+  return new Container (
+      child: new FlutterMap(
+
+          options: new MapOptions(
+              center: new LatLng(35.22, -101.83), minZoom: 1.0),
+          layers: [
+            new TileLayerOptions(
+                urlTemplate:
+                "https://api.mapbox.com/styles/v1/aneesh19/cjtc2eaw700ag1em0475js9tq/tiles/256/%7Bz%7D/%7Bx%7D/%7By%7D@2x?access_token=pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA",
+                additionalOptions: {
+                  'accessToken':
+                  'pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA',
+                  'id': 'mapbox.mapbox-terrain-v2'
+                }),
+            new MarkerLayerOptions(markers: [
+              new Marker(
+                  width: 45.0,
+                  height: 45.0,
+                  point: new LatLng(35.215, -101.825),
+                  builder: (context) => new Container(
+                    width: 48.0,
+                    height: 48.0,
+
+                  ))
+            ]),
+
+          ]
+
+      )
+  );
+}
+
+Container so2Map() {
+  return new Container (
+      child: new FlutterMap(
+
+          options: new MapOptions(
+              center: new LatLng(35.22, -101.83), minZoom: 1.0),
+          layers: [
+            new TileLayerOptions(
+                urlTemplate:
+                "https://api.mapbox.com/styles/v1/aneesh19/cjtbwojix1g701fn00cwga0lx/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA",
+                additionalOptions: {
+                  'accessToken':
+                  'pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA',
+                  'id': 'mapbox.mapbox-terrain-v2'
+                }),
+            new MarkerLayerOptions(markers: [
+              new Marker(
+                  width: 45.0,
+                  height: 45.0,
+                  point: new LatLng(35.215, -101.825),
+                  builder: (context) => new Container(
+                    width: 48.0,
+                    height: 48.0,
+
+                  ))
+            ]),
+
+          ]
+
+      )
+  );
+}
 
 
