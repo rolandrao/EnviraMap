@@ -21,10 +21,14 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 
 }
+//184b5c2a47a4d90ecc7f6c1d0b10a299ae49cd6e
 
 class _MyHomePageState extends State<MyHomePage> {
 
-
+  bool ozoneOn = true;
+  bool airOn = false;
+  bool so2On = false;
+  Color c = const Color.fromRGBO(255,255,255,1.0);
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +39,14 @@ class _MyHomePageState extends State<MyHomePage> {
         labelText: "Ozone",
         currentButton: FloatingActionButton(
           heroTag: "train",
-          backgroundColor: Colors.white,
+          backgroundColor: c,
           mini: true,
           child: IconButton(icon: Image.asset('assets/ozone.png'),
               iconSize: 50.0),
           onPressed: () {
-
+             setState(() {
+               OzoneState();
+             });
           },
         )));
 
@@ -50,9 +56,15 @@ class _MyHomePageState extends State<MyHomePage> {
         currentButton: FloatingActionButton(
 
             heroTag: "Air ",
-            backgroundColor: Colors.greenAccent,
+            backgroundColor: c,
             mini: true,
-            child: Icon(Icons.airplanemode_active))));
+            child: IconButton(icon: Image.asset('assets/carbondioxide.png')),
+            onPressed: (){
+              setState(() {
+                AirState();
+              });
+            },
+          )));
 
     childButtons.add(UnicornButton(
 
@@ -62,7 +74,12 @@ class _MyHomePageState extends State<MyHomePage> {
             heroTag: "SO2",
             backgroundColor: Colors.blueAccent,
             mini: true,
-            child: Icon(Icons.directions_car))));
+            child: Icon(Icons.directions_car),
+        onPressed: () {
+          setState(() {
+            so2State();
+          });
+        },)));
     return new Scaffold(
 
         //appBar: new AppBar(title: new Text('Leaflet Maps')),
@@ -72,13 +89,19 @@ class _MyHomePageState extends State<MyHomePage> {
             height: 2000,
 
           child: Stack(
-
             children: <Widget>[
               Visibility(
-                child: ozoneMap(),
-                visible: true,
+                child: so2Map(),
+                visible: so2On,
               ),
-
+              Visibility(
+                child: ozoneMap(),
+                visible: ozoneOn,
+              ),
+              Visibility(
+                child: airMap(),
+                visible: airOn,
+              ),
               new Container (
                 alignment: Alignment.bottomRight,
                 child: new UnicornDialer(
@@ -103,62 +126,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
     );
   }
-}
 
-class unicornWidget extends StatefulWidget{
-  @override
-  unicornState createState() => new unicornState();
-}
-
-class unicornState extends State<unicornWidget> {
-
-  Widget build(BuildContext context) {
-
-    var childButtons = List<UnicornButton>();
-
-    childButtons.add(UnicornButton(
-        hasLabel: true,
-        labelText: "Ozone",
-        currentButton: FloatingActionButton(
-          heroTag: "train",
-          backgroundColor: Colors.redAccent,
-          mini: true,
-          child: Icon(Icons.train),
-          onPressed: () {},
-        )));
-
-    childButtons.add(UnicornButton(
-        hasLabel: true,
-        labelText: "Air Pollution",
-        currentButton: FloatingActionButton(
-
-            heroTag: "Air ",
-            backgroundColor: Colors.greenAccent,
-            mini: true,
-            child: Icon(Icons.airplanemode_active))));
-
-    childButtons.add(UnicornButton(
-
-        hasLabel: true,
-        labelText: "SO2",
-        currentButton: FloatingActionButton(
-            heroTag: "SO2",
-            backgroundColor: Colors.blueAccent,
-            mini: true,
-            child: Icon(Icons.directions_car))));
-    return Scaffold(
-        floatingActionButton: UnicornDialer(
-            hasBackground: false,
-            parentButtonBackground: Colors.redAccent,
-            orientation: UnicornOrientation.VERTICAL,
-            parentButton: Icon(Icons.add),
-            childButtons: childButtons),
-
-
-    );
+  OzoneState() {
+    setState(() {
+      this.ozoneOn = true;
+      this.airOn = false;
+      this.so2On = false;
+    });
   }
-
+  AirState() {
+    this.airOn = true;
+    this.ozoneOn = false;
+    this.so2On = false;
+  }
+  so2State() {
+    this.so2On = true;
+    this.ozoneOn = false;
+    this.airOn = false;
+  }
 }
+
+
+
+
 
 Container ozoneMap() {
   return new Container (
@@ -169,7 +159,7 @@ Container ozoneMap() {
           layers: [
             new TileLayerOptions(
                 urlTemplate:
-                "https://api.mapbox.com/styles/v1/aneesh19/cjtbwojix1g701fn00cwga0lx/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA",
+                "https://api.mapbox.com/styles/v1/aneesh19/cjtc2jcpw00f31em0wcd4cb0z/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA",
                 additionalOptions: {
                   'accessToken':
                   'pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA',
@@ -202,7 +192,7 @@ Container airMap() {
           layers: [
             new TileLayerOptions(
                 urlTemplate:
-                "https://api.mapbox.com/styles/v1/aneesh19/cjtc2eaw700ag1em0475js9tq/tiles/256/%7Bz%7D/%7Bx%7D/%7By%7D@2x?access_token=pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA",
+                "https://api.mapbox.com/styles/v1/aneesh19/cjtbwojix1g701fn00cwga0lx/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA",
                 additionalOptions: {
                   'accessToken':
                   'pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA',
@@ -235,12 +225,12 @@ Container so2Map() {
           layers: [
             new TileLayerOptions(
                 urlTemplate:
-                "https://api.mapbox.com/styles/v1/aneesh19/cjtbwojix1g701fn00cwga0lx/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA",
-                additionalOptions: {
+                "https://tiles.waqi.info/tiles/usepa-co/{z}/{x}/{y}.png?token=184b5c2a47a4d90ecc7f6c1d0b10a299ae49cd6e",
+                /*additionalOptions: {
                   'accessToken':
                   'pk.eyJ1IjoiYW5lZXNoMTkiLCJhIjoiY2p0YXc1czdtMDBtYTQzcGQ5NnVrNHBraSJ9.Zhq1KNQPImacBi-bHyORuA',
                   'id': 'mapbox.mapbox-terrain-v2'
-                }),
+                }*/),
             new MarkerLayerOptions(markers: [
               new Marker(
                   width: 45.0,
@@ -258,5 +248,6 @@ Container so2Map() {
       )
   );
 }
+
 
 
